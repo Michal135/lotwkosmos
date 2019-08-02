@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="Pages/touristsPage.css" type="text/css" />
+
+</head>
+
+
+<html>
+<body>
+
+<h2 id="myMainText">Page with list of tourists</h2>
+
+<p id="demo2"></p>
+
+<script>
+    var obj, dbParam, xmlhttp, myObj, x, txt = "";
+    obj = { table: "tourist"};
+    dbParam = JSON.stringify(obj);
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            txt += "<table class=table>"
+            txt += "<thead><tr><th title='Field'>id</th>"
+            txt += "<th title='Field #2'>name</th>"
+            txt += "<th title='Field #3'>surname</th>"
+            txt += "<th title='Field #4'>sex</th>"
+            txt += "<th title='Field #5'>country</th>"
+            txt += "<th title='Field #6'>notes</th>"
+            txt += "<th title='Field #7'>dateofBirth</th>"
+            txt += "<th title='Field #8'>flyListIds</th>"
+
+            txt += "</tr></thead>"
+            for (x in myObj) {
+                txt += "<tr><td>" + myObj[x].id + "</td>"
+                txt += "<td>" + myObj[x].name + "</td>"
+                txt += "<td>" + myObj[x].surname + "</td>"
+                txt += "<td>" + myObj[x].sex + "</td>"
+                txt += "<td>" + myObj[x].country +"</td>"
+                txt += "<td>" + myObj[x].notes +"</td>"
+                txt += "<td>" + myObj[x].localDate +"</td>"
+                if( myObj[x].listOfFlies==""){
+                    txt += "<td>"+" - "+ "</td></tr>"
+                    continue;
+                }
+                var sample = myObj[x].listOfFlies;
+                var ids = [];
+
+                for(x in sample){
+                    ids.push(sample[x].id);}
+
+                txt += "<td>" + ids +"</td></tr>"
+            }
+
+            txt += "</table>"
+            document.getElementById("demo2").innerHTML = txt;
+
+        }
+
+    };
+    xmlhttp.open("GET", "http://localhost:8080/tourists", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + dbParam);
+
+</script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

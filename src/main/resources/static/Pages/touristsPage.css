@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+    font-size: 20pt;
+    background-color: #e8fffb;
+    margin: 100px;
+    margin-top: 10px;
+}
+
+table
+{
+    border: 3px solid black;
+    text-align: center;
+    background-color: #92f7e6;
+}
+th, td {
+    border: 1px solid black;
+}
+#myMainText
+{
+
+    text-align: center;
+    font-size: 80px;
+}
