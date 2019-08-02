@@ -54,6 +54,8 @@ public class FlyForm extends FormLayout {
         addFlightButton.addClickListener(event -> save());
     }
 
+    //
+
     private void save() {
         Fly flight = binder.getBean();
         flyRepo.save(flight);
