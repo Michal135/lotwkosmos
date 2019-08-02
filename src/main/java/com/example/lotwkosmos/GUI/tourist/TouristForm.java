@@ -83,8 +83,7 @@ public class TouristForm extends FormLayout {
         addNewTourist.addClickListener(event -> addingNewTourist());
     }
 
-    //
-//
+
 
     private void delete() {
         Tourist tourist = binder.getBean();
