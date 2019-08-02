@@ -151,7 +151,7 @@ public class TouristForm extends FormLayout {
         flightsGrid.setItems(listOfFlies);
         setFlightFields();
         flightsGrid.setSelectionMode(Grid.SelectionMode.SINGLE);
-
+//
     }
 
 }
