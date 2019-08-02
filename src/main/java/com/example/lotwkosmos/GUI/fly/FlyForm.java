@@ -42,7 +42,7 @@ public class FlyForm extends FormLayout {
         binder.forField(arrivalTime)
                 .bind(Fly::getArrivalTimeWithoutDate,Fly::setArrivalTimeWithoutDate);
 
-//
+
 
         binder.forField(numberOfPlaces)
                 .bind(flight -> (double) flight.getNumberOfPlaces(),
