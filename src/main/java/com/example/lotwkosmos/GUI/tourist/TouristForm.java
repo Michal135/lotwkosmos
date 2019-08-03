@@ -55,6 +55,7 @@ public class TouristForm extends FormLayout {
         add(deleteTourist);
         selectFlight = flightsGrid.asSingleSelect();
 
+        //
         binder.forField(name)
                 .bind(Tourist::getName,Tourist::setName);
         binder.forField(surmane)
