@@ -34,25 +34,27 @@ public class TouristController {
     }
 
     @PostMapping("/removeTouristById")
-    public void deleteTouristById(@RequestBody LongWrapper idTourist ){
+    public void deleteTouristById(@RequestBody LongWrapper idTourist ) {
 
-        Long touristIdToDelete = idTourist.getToutistID();
-
-        Tourist tourist = touristRepo.findTouristById(touristIdToDelete);
-//        touristRepo.deleteById(touristIdToDelete);
-
-        List<Fly> listOfFlies= tourist.getListOfFlies();
-        for(int i=0; i<listOfFlies.size();i++){
-            listOfFlies.get(i).removeTouristToFly(tourist);
-            Fly fly = listOfFlies.get(i);
-            tourist.removeFlytoTourist(fly);
-            touristRepo.save(tourist);
-            flyRepo.save(fly);
-            i--;
-        }
-        touristRepo.delete(tourist);
+//        Long touristIdToDelete = idTourist.getToutistID();
+//
+//        Tourist tourist = touristRepo.findTouristById(touristIdToDelete);
+////        touristRepo.deleteById(touristIdToDelete);
+//
+//        List<Fly> listOfFlies= tourist.getListOfFlies();
+//        for(int i=0; i<listOfFlies.size();i++){
+//            listOfFlies.get(i).removeTouristToFly(tourist);
+//            Fly fly = listOfFlies.get(i);
+//            tourist.removeFlytoTourist(fly);
+//            touristRepo.save(tourist);
+//            flyRepo.save(fly);
+//            i--;
+//        }
+//        touristRepo.delete(tourist);
+//    }
+        Tourist tourist = touristRepo.findTouristById(idTourist.getToutistID());
+        tourist.getListOfFlies().forEach(f -> f.removeTouristToFly(tourist));
     }
-
     //lista wszystkich turystow
     @GetMapping("/tourists")
     public List<Tourist> tourists(){
