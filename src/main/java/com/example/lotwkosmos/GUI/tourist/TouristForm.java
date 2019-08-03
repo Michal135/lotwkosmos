@@ -18,11 +18,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.selection.MultiSelect;
 import com.vaadin.flow.data.selection.SingleSelect;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 import java.util.List;
-import java.util.Set;
+
 
 
 public class TouristForm extends FormLayout {
@@ -48,17 +46,12 @@ public class TouristForm extends FormLayout {
         this.flyRepo=flyRepo;
         this.touristRepo = touristRepo;
 
-
-
         addingFlightByTourist();
 
         sex.setItems(SexType.values());
         add(name,surmane,sex,country,notes,birthday,flightsGrid,addTourist,addNewTourist);
         add(deleteTourist);
         selectFlight = flightsGrid.asSingleSelect();
-
-//checkCommit
-//        setTourist(new Tourist());
 
         binder.forField(name)
                 .bind(Tourist::getName,Tourist::setName);
@@ -123,7 +116,6 @@ public class TouristForm extends FormLayout {
         for (Fly e: listOfFlies) {
             if( e.equals(fly)) {
                 isFlyInList = true;
-                //to jest na liscie
                 break;
             }
         }
@@ -136,7 +128,6 @@ public class TouristForm extends FormLayout {
         }
 
     }
-////
     //
     private void setFlightFields() {
         flightsGrid.addColumn(Fly::getId).setHeader("Flight id");
@@ -145,7 +136,7 @@ public class TouristForm extends FormLayout {
         flightsGrid.addColumn(Fly::getNumberOfPlaces).setHeader("Nubmer of free places");
         flightsGrid.addColumn(Fly::getTicketCost).setHeader("Cost Of the Ticket");
     }
-
+//
     private void addingFlightByTourist(){
         listOfFlies = flyRepo.findAll();
         flightsGrid.setItems(listOfFlies);
