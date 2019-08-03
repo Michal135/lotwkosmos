@@ -46,6 +46,8 @@ public class TouristForm extends FormLayout {
         this.flyRepo=flyRepo;
         this.touristRepo = touristRepo;
 
+        setTourist(new Tourist());
+
         addingFlightByTourist();
 
         sex.setItems(SexType.values());
@@ -101,12 +103,14 @@ public class TouristForm extends FormLayout {
 
     private void addingNewTourist(){
         Tourist tourist = binder.getBean();
+//        System.out.println(tourist);
         touristRepo.save(tourist);
     }
 
     private void save() {
 
         Tourist tourist = binder.getBean();
+//        System.out.println(tourist);
 
         Fly fly = selectFlight.getValue();
         List<Fly> listOfFlies = touristRepo.findTouristById(tourist.getId()).getListOfFlies();
