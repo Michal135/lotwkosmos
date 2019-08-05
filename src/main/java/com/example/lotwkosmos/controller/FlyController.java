@@ -1,6 +1,7 @@
 package com.example.lotwkosmos.controller;
 
 import com.example.lotwkosmos.model.Fly;
+import com.example.lotwkosmos.model.LongWrapper;
 import com.example.lotwkosmos.model.Relationships;
 import com.example.lotwkosmos.model.Tourist;
 import com.example.lotwkosmos.repository.FlyRepo;
@@ -34,6 +35,14 @@ public class FlyController {
         public void deleteFly(@RequestBody Fly fly){
                 flyRepo.delete(fly);
         }
+
+        @PostMapping("/removeFlyById")
+        public void deleteTouristById(@RequestBody LongWrapper idFlight ) {
+                Fly fly = flyRepo.findFlyById(idFlight.getLongNumber());
+                fly.getTouristListid().forEach(f -> f.removeFlytoTourist(fly));
+                flyRepo.delete(fly);
+        }
+
 
 
         //wszystkie loty

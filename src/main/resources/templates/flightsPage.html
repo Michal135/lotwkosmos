@@ -51,6 +51,10 @@
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("x=" + dbParam);
 
+
+
+    // ************************************************************************
+
 </script>
 
 <h2>Form to editing flight</h2>
@@ -81,7 +85,7 @@
 
 
     <!--        <div class="form-row">-->
-    <button type="submit" class="btn btn-success" >Add new flight </button>
+    <button type="submit" class="btn btn-success" >Change existing flight </button>
     <!--        </div>-->
 </form>
 
@@ -119,6 +123,59 @@
     });
 
 </script>
+
+
+
+
+<!--// ************************************************************************-->
+
+
+
+<h2>Form to delete flight</h2>
+<form class="form2" id="formSubmit2">
+    <div class="form-row">
+        <label for="inpBody10">id(existing flight):</label>
+        <textarea id="inpBody10" ></textarea>
+    </div>
+
+    <!--        <div class="form-row">-->
+    <button type="submit" class="btn btn-danger" >Delete Flight </button>
+    <!--        </div>-->
+</form>
+
+
+<script>
+
+    //pobieramy wszystkie niezbędne elementy
+    $form2 = $('.form2');
+    $inputBody10 = $('#inpBody10');
+
+    $submitBtn = $form.find(":submit");
+
+
+
+    //podpinamy się pod wysłany formularz
+    $form2.on("submit", function(e) {
+        e.preventDefault();
+
+//wysyłamy dane
+        $.ajax({
+            url: "http://localhost:8080/removeFlyById",
+            method : "POST",
+            data: JSON.stringify({
+                "longNumber": $inputBody10.val()}),
+
+            headers:{"Content-Type":"application/json; charset=utf-8"}
+
+        })
+    });
+
+</script>
+
+
+
+
+
 
 
 

@@ -27,6 +27,25 @@ public class TouristController {
         touristRepo.save(tourist);
     }
 
+    @PostMapping("/editTourist")
+    public void editToutistWithoutFlies(@RequestBody Tourist tourist){
+        long touristId = tourist.getId();
+//        List<Fly> listofFlies = touristRepo.findTouristById(touristId).getListOfFlies();
+        Tourist tourist1 = touristRepo.findTouristById(touristId);
+
+        tourist1.setName(tourist.getName());
+        tourist1.setSurname(tourist.getSurname());
+        tourist1.setSex(tourist.getSex());
+        tourist1.setCountry(tourist.getCountry());
+        tourist1.setNotes(tourist.getNotes());
+        tourist1.setLocalDate(tourist.getLocalDate());
+
+        touristRepo.save(tourist1);
+    }
+
+
+
+
     //usuwanie turysty
     @PostMapping("/removeTourist")
     public void deleteTourist(@RequestBody Tourist tourist){
@@ -52,9 +71,12 @@ public class TouristController {
 //        }
 //        touristRepo.delete(tourist);
 //    }
-        Tourist tourist = touristRepo.findTouristById(idTourist.getToutistID());
+        Tourist tourist = touristRepo.findTouristById(idTourist.getLongNumber());
         tourist.getListOfFlies().forEach(f -> f.removeTouristToFly(tourist));
+        touristRepo.delete(tourist);
     }
+
+
     //lista wszystkich turystow
     @GetMapping("/tourists")
     public List<Tourist> tourists(){

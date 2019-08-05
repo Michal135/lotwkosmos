@@ -21,3 +21,17 @@ th, td {
     text-align: center;
     font-size: 80px;
 }
+form {
+    margin: 20px;
+    padding: 10px;
+    display: inline-block;
+    border: 3px solid black;
+    background-color: #fff4de;
+}
+
+#formSubmit{
+    background-color: #f9fff5;
+}
+#formSubmit2{
+    background-color: #ffe8e8;
+}

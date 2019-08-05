@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="Pages/touristsPage.css" type="text/css" />
+    <link rel="stylesheet" href="Pages/addingFlightToTourist.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <title>Title</title>
 </head>
-
-
-<html>
 <body>
 
-<h2 id="myMainText">Page with list of tourists</h2>
+<p id="demo3"></p>
 
-<p id="demo2"></p>
+<script>
+    var obj, dbParam, xmlhttp, myObj, x, txt = "";
+    obj = { table: "flights"};
+    dbParam = JSON.stringify(obj);
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            txt += "<table class=table id=table1>"
+            txt += "<thead><tr><th title='Field'>id</th>"
+            txt += "<th title='Field #2'>departureTime</th>"
+            txt += "<th title='Field #3'>arrivalTime</th>"
+            txt += "<th title='Field #4'>numberOfPlaces</th>"
+            txt += "<th title='Field #5'>ticketCost</th>"
+            txt += "</tr></thead>"
+            for (x in myObj) {
+                txt += "<tr><td>" + myObj[x].id + "</td>"
+                txt += "<td>" + myObj[x].departureTime + "</td>"
+                txt += "<td>" + myObj[x].arrivalTime + "</td>"
+                txt += "<td>" + myObj[x].numberOfPlaces + "</td>"
+                txt += "<td>" + myObj[x].ticketCost +"</td></tr>"
+            }
+
+            txt += "</table>"
+            document.getElementById("demo3").innerHTML = txt;
+
+        }
+
+    };
+    xmlhttp.open("GET", "http://localhost:8080/flights", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + dbParam);
+
+</script>
+
+
 
 <script>
     var obj, dbParam, xmlhttp, myObj, x, txt = "";
@@ -25,7 +57,7 @@
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            txt += "<table class=table>"
+            txt += "<table class=table id=table2>"
             txt += "<thead><tr><th title='Field'>id</th>"
             txt += "<th title='Field #2'>name</th>"
             txt += "<th title='Field #3'>surname</th>"
@@ -58,7 +90,7 @@
             }
 
             txt += "</table>"
-            document.getElementById("demo2").innerHTML = txt;
+            document.getElementById("demo3").innerHTML = txt;
 
         }
 
@@ -69,51 +101,24 @@
 
 </script>
 
-<!--****************************************************8-->
-
-
-<h2>Form to changing tourists</h2>
-
+<!--***********************************************************************************-->
 <form class="form" id="formSubmit">
 
     <div class="form-row">
-        <label for="inpBody0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id</label>
-        <textarea id="inpBody0" ></textarea>
-    </div>
-    <div class="form-row">
-        <label for="inpBody1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name</label>
+        <label for="inpBody1">touristId:&nbsp;&nbsp;</label>
         <textarea id="inpBody1" ></textarea>
     </div>
     <div class="form-row">
-        <label for="inpBody2">&nbsp;surname</label>
+        <label for="inpBody2">flyId:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <textarea id="inpBody2"></textarea>
     </div>
 
-    <div class="form-row">
-        <label for="inpBody3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sex</label>
-        <textarea id="inpBody3"></textarea>
-    </div>
-
-    <div class="form-row">
-        <label for="inpBody4">&nbsp;&nbsp;&nbsp;country</label>
-        <textarea id="inpBody4"></textarea>
-    </div>
-
-    <div class="form-row">
-        <label for="inpBody5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notes</label>
-        <textarea id="inpBody5"></textarea>
-    </div>
-
-    <div class="form-row">
-        <label for="inpBody6">localDate</label>
-        <textarea id="inpBody6"></textarea>
-    </div>
 
 
 
-    <div class="form-row">
-        <button type="submit" class="btn btn-success">Change Tourist </button>
-    </div>
+    <!--        <div class="form-row">-->
+    <button type="submit" class="btn btn-success" >Add New Flight </button>
+    <!--        </div>-->
 </form>
 
 
@@ -121,13 +126,8 @@
 
     //pobieramy wszystkie niezbędne elementy
     $form = $('.form');
-    $inputBody0 = $('#inpBody0');
     $inputBody1 = $('#inpBody1');
     $inputBody2 = $('#inpBody2');
-    $inputBody3 = $('#inpBody3');
-    $inputBody4 = $('#inpBody4');
-    $inputBody5 = $('#inpBody5');
-    $inputBody6 = $('#inpBody6');
     $submitBtn = $form.find(":submit");
 
     //podpinamy się pod wysłany formularz
@@ -136,16 +136,11 @@
 
 //wysyłamy dane
         $.ajax({
-            url: "http://localhost:8080/editTourist",
+            url: "http://localhost:8080/addTouristToFly",
             method : "POST",
             data: JSON.stringify({
-                id : $inputBody0.val(),
-                name : $inputBody1.val(),
-                surname : $inputBody2.val(),
-                sex : $inputBody3.val(),
-                country : $inputBody4.val(),
-                notes : $inputBody5.val(),
-                localDate : $inputBody6.val()}),
+                "touristId" : $inputBody1.val(),
+                "flyId" : $inputBody2.val()}),
             headers:{"Content-Type":"application/json; charset=utf-8"}
 
         })
@@ -153,22 +148,24 @@
 
 </script>
 
-<!--***********************************************************************-->
-<h2>Form to delete tourists</h2>
-
+<!--***********************************************************************************-->
 <form class="form2" id="formSubmit2">
 
     <div class="form-row">
-        <label for="inpBody10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id</label>
+        <label for="inpBody10">touristId:&nbsp;&nbsp;</label>
         <textarea id="inpBody10" ></textarea>
     </div>
-
-
-
-
     <div class="form-row">
-        <button type="submit" class="btn btn-danger">Delete Tourist </button>
+        <label for="inpBody20">flyId:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <textarea id="inpBody20"></textarea>
     </div>
+
+
+
+
+    <!--        <div class="form-row">-->
+    <button type="submit" class="btn btn-danger" >Remove Existing Flight </button>
+    <!--        </div>-->
 </form>
 
 
@@ -177,6 +174,7 @@
     //pobieramy wszystkie niezbędne elementy
     $form2 = $('.form2');
     $inputBody10 = $('#inpBody10');
+    $inputBody20 = $('#inpBody20');
     $submitBtn = $form.find(":submit");
 
     //podpinamy się pod wysłany formularz
@@ -185,16 +183,19 @@
 
 //wysyłamy dane
         $.ajax({
-            url: "http://localhost:8080/removeTouristById",
+            url: "http://localhost:8080/removeTouristToFly",
             method : "POST",
             data: JSON.stringify({
-                longNumber : $inputBody10.val()}),
-
+                "touristId" : $inputBody10.val(),
+                "flyId" : $inputBody20.val()}),
             headers:{"Content-Type":"application/json; charset=utf-8"}
+
         })
     });
 
 </script>
+
+
 
 
 

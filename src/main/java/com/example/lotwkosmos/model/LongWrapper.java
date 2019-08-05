@@ -3,20 +3,20 @@ package com.example.lotwkosmos.model;
 import org.springframework.stereotype.Component;
 
 public class LongWrapper {
-    Long toutistID;
+    Long longNumber;
 
-    public LongWrapper(Long toutistID) {
-        this.toutistID = toutistID;
-    }
-
-    public Long getToutistID() {
-        return toutistID;
-    }
-
-    public void setToutistID(Long toutistID) {
-        this.toutistID = toutistID;
+    public LongWrapper(Long longNumber) {
+        this.longNumber = longNumber;
     }
 
     public LongWrapper() {
+    }
+
+    public Long getLongNumber() {
+        return longNumber;
+    }
+
+    public void setLongNumber(Long longNumber) {
+        this.longNumber = longNumber;
     }
 }
